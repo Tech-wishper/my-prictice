@@ -17,7 +17,7 @@ int count = 0;
 void addStudent(void)
 {
 	
-	printf("欢迎使用录入系统！\n请输入本次录入人数。退出请输入“0”。\n\n\n"); 
+	printf("\n欢迎使用录入系统！退出请输入“0”\n请输入本次录入人数:"); 
 	int addnum = 0;
     if(scanf("%d",&addnum) != 1){
       printf("[错误]请输入数字！\n\n\n");
@@ -26,7 +26,7 @@ void addStudent(void)
 	}
     
     if(addnum == 0){
-	  printf("已退出。\n\n\n");
+	  printf("\n\n已退出录入系统。\n\n\n");
 	  return;
 	}
     
@@ -48,7 +48,7 @@ void addStudent(void)
 
 	for(int k = 0; k < addnum; k++){
 	
-	    printf("请输入学生学号:");
+	    printf("\n\n请输入学生学号:");
 		
 		while(scanf("%19s",students[count].id) != 1){
            printf("[错误]请输入有效学号！\n\n\n");
@@ -76,15 +76,34 @@ void addStudent(void)
 }
 
 
+#include <stdio.h>
+void printAll(void){
+	if(count == 0){
+	   printf("\n[提示]暂无学生数据，请回到主页进入录入系统进行录入！\n\n\n"); 
+	   return;
+	}
+		printf("\n\n%-12s%-10s%6s\n","学号","姓名","成绩");
+		printf("-----------------------------\n");
+		
+		for(int i = 0;i < count;i++){
+			printf("%-12s%-10s%6.1f\n",
+			students[i].id,
+			students[i].name,
+			students[i].score);
+		}
+		printf("\n本次共输出%d名学生信息。\n\n",count);
+}
+
 
 int main(){
 	int choice = -1;
 	while(1){
 	
-	printf("欢迎使用学生成绩管理系统！\n\n\n");
+	printf("欢 迎 使 用 学 生 成 绩 管 理 系 统！\n\n");
 	printf("输入对应数字以使用功能。\n"); 
 	printf("输入“1”，录入学生成绩。\n");
 	printf("输入“2”，查看已录入成绩。\n"); 
+	printf("输入“3”，查询已录入成绩。\n"); 
 	printf("输入“0”，退出学生成绩管理系统。\n");
 	printf("请输入您的选择：");
 	
@@ -100,11 +119,15 @@ int main(){
 			break;
 			
 		case 2:
-			printf("[提示]查看功能开发中，敬请期待！\n\n\n"); 
+			printAll();
+			break;
+			
+		case 3:
+			printf("\n功能开发中，敬请期待！\n");
 			break;
 			
 		case 0: 
-		    printf("感谢您的使用，再见！\n\n\n"); 
+		    printf("\n感谢您的使用，再见！\n\n\n"); 
 		    return 0;
 		default:
 		    printf("[错误]输入数字无效！\n\n\n");
