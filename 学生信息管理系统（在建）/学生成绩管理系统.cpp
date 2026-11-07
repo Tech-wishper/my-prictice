@@ -75,9 +75,8 @@ void addStudent(void)
 	printf("本次录入完成，当前共 %d 名学生。\n\n\n", count);
 }
 
-
-#include <stdio.h>
-void printAll(void){
+void printAll(void)
+{
 	if(count == 0){
 	   printf("\n[提示]暂无学生数据，请回到主页进入录入系统进行录入！\n\n\n"); 
 	   return;
@@ -94,7 +93,66 @@ void printAll(void){
 		printf("\n本次共输出%d名学生信息。\n\n",count);
 }
 
+void searchStudent(void)
+{
+	char target_id[20];
+	int found = 0;
+	
+	if(count == 0)
+	{
+	printf("\n\n[提示]当前无录入数据，请录入数据后查询！\n\n");
+	return;
+	}
+	
+	printf("\n\n\n请输入要查询的学生学号:");
+	scanf("%19s",target_id); 
+	
+	for(int i = 0;i<count;i++){
+		if(strcmp(students[i].id, target_id) == 0){
+			printf("\n\n\n找到学生数据：学号：%s  姓名：%s  成绩：%.1f\n\n\n",
+			students[i].id, students[i].name, students[i].score);
+			
+			found = 1;
+			break; 
+		}
+	}
+	if(found == 0)
+	{
+	printf("\n\n[提示]未找到学号为%s的学生数据。\n\n",target_id); 
+	}
+}
 
+void deleteStudent(void)
+{
+	char delete_id[20];
+	int found = 0;
+	
+	if(count == 0){
+		printf("\n\n[提示]当前无录入数据，请录入数据后查询！\n\n");
+		return;
+	}
+	printf("请输入要删除的学生学号：");
+	scanf("%19s",delete_id);
+	
+	for(int i = 0;i < count;i++){
+		if(strcmp(delete_id,students[i].id) == 0){
+			found = 1;
+			
+			for(int k = i;k < count - 1;k++){
+				students[k] = students[k+1];
+			}
+			count--;
+			break;
+		}
+	}
+	if(found){
+		printf("\n\n已删除学号为%s的学生信息，剩余%d名学生。\n\n",delete_id,count); 
+		return;
+	}else{
+		printf("\n\n[提示]未找到学号为%s的学生信息！\n\n",delete_id);
+		return;
+	}
+}
 int main(){
 	int choice = -1;
 	while(1){
@@ -103,7 +161,8 @@ int main(){
 	printf("输入对应数字以使用功能。\n"); 
 	printf("输入“1”，录入学生成绩。\n");
 	printf("输入“2”，查看已录入成绩。\n"); 
-	printf("输入“3”，查询已录入成绩。\n"); 
+	printf("输入“3”，查询已录入成绩。\n");
+	printf("输入“4”，删除已录入成绩。\n"); 
 	printf("输入“0”，退出学生成绩管理系统。\n");
 	printf("请输入您的选择：");
 	
@@ -123,12 +182,17 @@ int main(){
 			break;
 			
 		case 3:
-			printf("\n功能开发中，敬请期待！\n");
+			searchStudent(); 
 			break;
 			
+		case 4:
+			deleteStudent();
+			break;
+			 
 		case 0: 
 		    printf("\n感谢您的使用，再见！\n\n\n"); 
 		    return 0;
+		    
 		default:
 		    printf("[错误]输入数字无效！\n\n\n");
 	}       
