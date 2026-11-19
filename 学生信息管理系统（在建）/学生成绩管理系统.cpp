@@ -153,7 +153,69 @@ void deleteStudent(void)
 		return;
 	}
 }
+
+void SaveToFile(void){
+	if(count == 0){
+    printf("\n\n[提示]当前无数据，无需保存。\n\n");
+    return;
+}
+
+	FILE *fp = fopen("Students.txt","w");
+	if(fp==NULL){return;}
+	for(int i = 0;i < count;i++){
+			fprintf(fp,"%s %s %.1f\n",
+			students[i].id,
+			students[i].name,
+			students[i].score);
+		}
+	printf("\n已将学生信息保存至Students.txt\n");
+	printf("本次共存入%d条信息。\n",count);
+	fclose(fp);
+}
+
+void sortStudent(void){
+    if (count == 0) {
+        printf("\n\n[提示]暂无数据。\n\n");
+        return;
+    }
+
+    printf("\n按成绩从大到小排序中......\n");
+    
+    for(int i = 0; i < count - 1; i++){
+        for(int k = 0; k < count - 1 - i; k++){
+            if(students[k].score < students[k+1].score){
+                Student temp = students[k];
+                students[k] = students[k + 1];
+                students[k + 1] = temp;
+            }
+        }
+    }
+    printAll(); 
+}
+
+void LoadFromFile(void)
+{
+	FILE *fp = fopen("Students.txt","r");
+	
+	count = 0;
+	
+	if(fp == NULL){
+		return;
+	}
+	while(count < MAX_STUDENTS&&fscanf(fp,"%s %s %lf",
+	             students[count].id,
+				 students[count].name,
+				 &students[count].score) == 3){
+		
+		count++;
+		
+	}
+	fclose(fp);
+}
+
 int main(){
+	LoadFromFile();
+	
 	int choice = -1;
 	while(1){
 	
@@ -162,7 +224,9 @@ int main(){
 	printf("输入“1”，录入学生成绩。\n");
 	printf("输入“2”，查看已录入成绩。\n"); 
 	printf("输入“3”，查询已录入成绩。\n");
-	printf("输入“4”，删除已录入成绩。\n"); 
+	printf("输入“4”，删除已录入成绩。\n");
+	printf("输入“5”，从大到小排序并输出已录入成绩。\n");
+	printf("输入“6”，保存学生成绩至文件。\n");
 	printf("输入“0”，退出学生成绩管理系统。\n");
 	printf("请输入您的选择：");
 	
@@ -189,12 +253,21 @@ int main(){
 			deleteStudent();
 			break;
 			 
+		case 5:
+			sortStudent();
+			break;
+			
+		case 6:
+			SaveToFile();
+			break;
+			
 		case 0: 
 		    printf("\n感谢您的使用，再见！\n\n\n"); 
 		    return 0;
 		    
 		default:
 		    printf("[错误]输入数字无效！\n\n\n");
+		    break;
 	}       
 	        }
 	return 0;
