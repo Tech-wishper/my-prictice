@@ -154,7 +154,8 @@ void deleteStudent(void)
 	}
 }
 
-void SaveToFile(void){
+void SaveToFile(void)
+{
 	if(count == 0){
     printf("\n\n[提示]当前无数据，无需保存。\n\n");
     return;
@@ -173,7 +174,8 @@ void SaveToFile(void){
 	printf("本次共存入%d条信息。\n",count);
 }
 
-void sortStudent(void){
+void sortStudent(void)
+{
     if (count == 0) {
         printf("\n\n[提示]暂无数据。\n\n");
         return;
@@ -226,7 +228,6 @@ int main(){
 	printf("输入“3”，查询已录入成绩。\n");
 	printf("输入“4”，删除已录入成绩。\n");
 	printf("输入“5”，从大到小排序并输出已录入成绩。\n");
-	printf("输入“6”，保存学生成绩至文件。\n");
 	printf("输入“0”，退出学生成绩管理系统。\n");
 	printf("请输入您的选择：");
 	
@@ -257,11 +258,9 @@ int main(){
 			sortStudent();
 			break;
 			
-		case 6:
-			SaveToFile();
-			break;
-			
 		case 0: 
+		    SaveToFile();
+			printf("\n已自动保存\n"); 
 		    printf("\n感谢您的使用，再见！\n\n\n"); 
 		    return 0;
 		    
