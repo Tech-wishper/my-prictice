@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -156,11 +155,6 @@ void deleteStudent(void)
 
 void SaveToFile(void)
 {
-	if(count == 0){
-    printf("\n\n[提示]当前无数据，无需保存。\n\n");
-    return;
-}
-
 	FILE *fp = fopen("Students.txt","w");
 	if(fp==NULL){printf("保存失败");return;}
 	for(int i = 0;i < count;i++){
@@ -170,8 +164,11 @@ void SaveToFile(void)
 			students[i].score);
 		}
 	fclose(fp);
-	printf("\n已将学生信息保存至Students.txt\n\n");
-	printf("本次共存入%d条信息。\n",count);
+	if(count == 0){
+		printf("\n已清空存档（当前无学生数据）\n\n");
+	}else{
+		printf("\n已将 %d 条信息保存至 Students.txt\n\n",count);
+	}
 }
 
 void sortStudent(void)
@@ -260,7 +257,6 @@ int main(){
 			
 		case 0: 
 		    SaveToFile();
-			printf("\n已自动保存\n"); 
 		    printf("\n感谢您的使用，再见！\n\n\n"); 
 		    return 0;
 		    
