@@ -161,16 +161,16 @@ void SaveToFile(void){
 }
 
 	FILE *fp = fopen("Students.txt","w");
-	if(fp==NULL){return;}
+	if(fp==NULL){printf("保存失败");return;}
 	for(int i = 0;i < count;i++){
 			fprintf(fp,"%s %s %.1f\n",
 			students[i].id,
 			students[i].name,
 			students[i].score);
 		}
-	printf("\n已将学生信息保存至Students.txt\n");
-	printf("本次共存入%d条信息。\n",count);
 	fclose(fp);
+	printf("\n已将学生信息保存至Students.txt\n\n");
+	printf("本次共存入%d条信息。\n",count);
 }
 
 void sortStudent(void){
